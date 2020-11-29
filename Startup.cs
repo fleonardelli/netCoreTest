@@ -31,8 +31,8 @@ namespace api
             services.AddControllers();
 
             var server = Configuration["DB_SERVER"];
-            var port = Configuration["DB_SERVER"];
-            var user = Configuration["DB_SERVER"];
+            var port = Configuration["DB_PORT"];
+            var user = Configuration["DB_USER"];
             var password = Configuration["DB_PASSWORD"];
             var db = Configuration["DB_NAME"];
 
@@ -41,7 +41,7 @@ namespace api
             }
 
             services.AddDbContext<IotHomeControlContext>(options =>
-                options.UseMySql("server={server};port={port};database={db};user={user};password={password}"));
+                options.UseMySql($"server={server};port={port};database={db};user={user};password={password}"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
