@@ -1,5 +1,16 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
-# Use native linux file polling for better performance
-ENV DOTNET_USE_POLLING_FILE_WATCHER 1
 WORKDIR /app
-ENTRYPOINT [ "dotnet", "watch", "run", "--no-restore", "--urls", "https://0.0.0.0:443"]
+
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "api.dll"]
