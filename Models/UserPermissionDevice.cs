@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace api.Models
 {
     public partial class UserPermissionDevice
@@ -12,7 +10,7 @@ namespace api.Models
         public uint DeviceId { get; set; }
 
         public virtual Device Device { get; set; }
-        public virtual Permission Permission { get; set; }
+        public virtual Permissions Permission { get; set; }
         public virtual User User { get; set; }
     }
 }

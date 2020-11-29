@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace api.Models
 {
     public partial class Device
@@ -10,7 +8,7 @@ namespace api.Models
         public Device()
         {
             InverseDeviceTypeNavigation = new HashSet<Device>();
-            UserPermissionDevices = new HashSet<UserPermissionDevice>();
+            UserPermissionDevice = new HashSet<UserPermissionDevice>();
         }
 
         public uint Id { get; set; }
@@ -19,6 +17,6 @@ namespace api.Models
 
         public virtual Device DeviceTypeNavigation { get; set; }
         public virtual ICollection<Device> InverseDeviceTypeNavigation { get; set; }
-        public virtual ICollection<UserPermissionDevice> UserPermissionDevices { get; set; }
+        public virtual ICollection<UserPermissionDevice> UserPermissionDevice { get; set; }
     }
 }

@@ -1,36 +1,34 @@
 ﻿using System;
+using api.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-#nullable disable
-
 namespace api.Models
 {
-    public partial class iot_home_controlContext : DbContext
+    public partial class IotHomeControlContext : DbContext
     {
-        public iot_home_controlContext()
+        public IotHomeControlContext()
         {
         }
 
-        public iot_home_controlContext(DbContextOptions<iot_home_controlContext> options)
+        public IotHomeControlContext(DbContextOptions<IotHomeControlContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<Device> Devices { get; set; }
-        public virtual DbSet<DeviceType> DeviceTypes { get; set; }
-        public virtual DbSet<Family> Families { get; set; }
-        public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<Rol> Rols { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserPermissionDevice> UserPermissionDevices { get; set; }
+        public virtual DbSet<Device> Device { get; set; }
+        public virtual DbSet<DeviceType> DeviceType { get; set; }
+        public virtual DbSet<Family> Family { get; set; }
+        public virtual DbSet<Permissions> Permissions { get; set; }
+        public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserPermissionDevice> UserPermissionDevice { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=127.0.0.1;port=3306;database=iot_home_control;user=root;password=12345678", x => x.ServerVersion("8.0.19-mysql"));
+                throw (new MisconfiguredDatabaseConnection());
             }
         }
 
@@ -40,9 +38,11 @@ namespace api.Models
             {
                 entity.ToTable("device");
 
-                entity.HasIndex(e => e.DeviceType, "device_type");
+                entity.HasIndex(e => e.DeviceType)
+                    .HasName("device_type");
 
-                entity.HasIndex(e => e.ExternalId, "external_id")
+                entity.HasIndex(e => e.ExternalId)
+                    .HasName("external_id")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -62,14 +62,15 @@ namespace api.Models
             {
                 entity.ToTable("device_type");
 
-                entity.HasIndex(e => e.Name, "name")
+                entity.HasIndex(e => e.Name)
+                    .HasName("name")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
-                    .HasColumnType("varchar(100)")
                     .HasColumnName("name")
+                    .HasColumnType("varchar(100)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
             });
@@ -78,7 +79,8 @@ namespace api.Models
             {
                 entity.ToTable("family");
 
-                entity.HasIndex(e => e.MainUserId, "main_user_id");
+                entity.HasIndex(e => e.MainUserId)
+                    .HasName("main_user_id");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -86,30 +88,31 @@ namespace api.Models
 
                 entity.Property(e => e.Surname)
                     .IsRequired()
-                    .HasColumnType("varchar(150)")
                     .HasColumnName("surname")
+                    .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.HasOne(d => d.MainUser)
-                    .WithMany(p => p.Families)
+                    .WithMany(p => p.Family)
                     .HasForeignKey(d => d.MainUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("family_ibfk_1");
             });
 
-            modelBuilder.Entity<Permission>(entity =>
+            modelBuilder.Entity<Permissions>(entity =>
             {
                 entity.ToTable("permissions");
 
-                entity.HasIndex(e => e.Name, "name")
+                entity.HasIndex(e => e.Name)
+                    .HasName("name")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
-                    .HasColumnType("varchar(100)")
                     .HasColumnName("name")
+                    .HasColumnType("varchar(100)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
             });
@@ -118,14 +121,15 @@ namespace api.Models
             {
                 entity.ToTable("rol");
 
-                entity.HasIndex(e => e.Name, "name")
+                entity.HasIndex(e => e.Name)
+                    .HasName("name")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
-                    .HasColumnType("varchar(50)")
                     .HasColumnName("name")
+                    .HasColumnType("varchar(50)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
             });
@@ -134,24 +138,26 @@ namespace api.Models
             {
                 entity.ToTable("user");
 
-                entity.HasIndex(e => e.Email, "email")
+                entity.HasIndex(e => e.Email)
+                    .HasName("email")
                     .IsUnique();
 
-                entity.HasIndex(e => e.RolId, "rol_id");
+                entity.HasIndex(e => e.RolId)
+                    .HasName("rol_id");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasColumnType("varchar(150)")
                     .HasColumnName("email")
+                    .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar(150)")
                     .HasColumnName("name")
+                    .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
@@ -159,13 +165,13 @@ namespace api.Models
 
                 entity.Property(e => e.Surname)
                     .IsRequired()
-                    .HasColumnType("varchar(150)")
                     .HasColumnName("surname")
+                    .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.HasOne(d => d.Rol)
-                    .WithMany(p => p.Users)
+                    .WithMany(p => p.User)
                     .HasForeignKey(d => d.RolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_ibfk_1");
@@ -179,9 +185,11 @@ namespace api.Models
 
                 entity.ToTable("user_permission_device");
 
-                entity.HasIndex(e => e.DeviceId, "device_id");
+                entity.HasIndex(e => e.DeviceId)
+                    .HasName("device_id");
 
-                entity.HasIndex(e => e.PermissionId, "permission_id");
+                entity.HasIndex(e => e.PermissionId)
+                    .HasName("permission_id");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -190,19 +198,19 @@ namespace api.Models
                 entity.Property(e => e.DeviceId).HasColumnName("device_id");
 
                 entity.HasOne(d => d.Device)
-                    .WithMany(p => p.UserPermissionDevices)
+                    .WithMany(p => p.UserPermissionDevice)
                     .HasForeignKey(d => d.DeviceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_permission_device_ibfk_3");
 
                 entity.HasOne(d => d.Permission)
-                    .WithMany(p => p.UserPermissionDevices)
+                    .WithMany(p => p.UserPermissionDevice)
                     .HasForeignKey(d => d.PermissionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_permission_device_ibfk_2");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserPermissionDevices)
+                    .WithMany(p => p.UserPermissionDevice)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_permission_device_ibfk_1");

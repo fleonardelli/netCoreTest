@@ -3,22 +3,16 @@ using System.Collections.Generic;
 
 namespace api.Models
 {
-    public partial class User
+    public partial class Permissions
     {
-        public User()
+        public Permissions()
         {
-            Family = new HashSet<Family>();
             UserPermissionDevice = new HashSet<UserPermissionDevice>();
         }
 
         public uint Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public uint RolId { get; set; }
 
-        public virtual Rol Rol { get; set; }
-        public virtual ICollection<Family> Family { get; set; }
         public virtual ICollection<UserPermissionDevice> UserPermissionDevice { get; set; }
     }
 }
