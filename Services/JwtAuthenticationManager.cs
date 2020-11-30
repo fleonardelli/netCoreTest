@@ -1,6 +1,5 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +18,8 @@ namespace api.Services
         private readonly IotHomeControlContext _dbContext;
         private readonly IExternalTokenValidator _externalTokenValidator;
         private readonly IMapper _mapper;
-
         private readonly IConfiguration _config;
+
         public JwtAuthenticationManager(
             IotHomeControlContext dbContext,
             IExternalTokenValidator externalTokenValidator,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
@@ -11,12 +12,22 @@ namespace api.Models
             UserPermissionDevice = new HashSet<UserPermissionDevice>();
         }
 
+        [Key]
         public uint Id { get; set; }
+        [Required]
+        [StringLength(150, MinimumLength = 2)]
         public string Name { get; set; }
+        [Key]
+        [StringLength(150, MinimumLength = 2)]
         public string Surname { get; set; }
+        [Key]
+        [EmailAddress]
         public string Email { get; set; }
+        [RegularExpression("([1-9][0-9]*)")]
         public uint RolId { get; set; }
+        [RegularExpression("([1-9][0-9]*)")]
         public uint FamilyId { get; set; }
+
         [NotMapped]
         public string token { get; set; }
 

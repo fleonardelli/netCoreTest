@@ -1,6 +1,5 @@
 using api.Dtos.Login;
 using api.Models;
-using api.Services;
 using AutoMapper;
 
 namespace api.Profiles
