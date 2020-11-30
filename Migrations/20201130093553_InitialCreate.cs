@@ -16,7 +16,7 @@ namespace api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(100)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci")
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,7 @@ namespace api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     surname = table.Column<string>(type: "varchar(150)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci"),
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     main_user_id = table.Column<uint>(nullable: false)
                 },
                 constraints: table =>
@@ -47,7 +47,7 @@ namespace api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(100)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci")
                 },
                 constraints: table =>
                 {
@@ -62,7 +62,7 @@ namespace api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(50)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci")
                 },
                 constraints: table =>
                 {
@@ -77,7 +77,7 @@ namespace api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     external_id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci"),
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     device_type_id = table.Column<uint>(nullable: false)
                 },
                 constraints: table =>
@@ -99,13 +99,13 @@ namespace api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(150)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci"),
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     surname = table.Column<string>(type: "varchar(150)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci"),
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     email = table.Column<string>(type: "varchar(150)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
-                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci"),
+                        .Annotation("MySql:Collation", "utf8mb4_general_ci"),
                     rol_id = table.Column<uint>(nullable: false),
                     family_id = table.Column<uint>(nullable: false)
                 },

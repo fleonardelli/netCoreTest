@@ -35,7 +35,7 @@ namespace api.Migrations
                         .HasColumnName("external_id")
                         .HasColumnType("varchar(255)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("Id");
 
@@ -60,7 +60,7 @@ namespace api.Migrations
                         .HasColumnName("name")
                         .HasColumnType("varchar(100)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("Id");
 
@@ -99,7 +99,7 @@ namespace api.Migrations
                         .HasColumnName("surname")
                         .HasColumnType("varchar(150)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("Id");
 
@@ -125,7 +125,7 @@ namespace api.Migrations
                         .HasColumnName("name")
                         .HasColumnType("varchar(100)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("Id");
 
@@ -169,7 +169,7 @@ namespace api.Migrations
                         .HasColumnName("name")
                         .HasColumnType("varchar(50)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("Id");
 
@@ -204,7 +204,7 @@ namespace api.Migrations
                         .HasColumnName("email")
                         .HasColumnType("varchar(150)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.Property<uint>("FamilyId")
                         .HasColumnName("family_id")
@@ -215,7 +215,7 @@ namespace api.Migrations
                         .HasColumnName("name")
                         .HasColumnType("varchar(150)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.Property<uint>("RolId")
                         .HasColumnName("rol_id")
@@ -226,7 +226,7 @@ namespace api.Migrations
                         .HasColumnName("surname")
                         .HasColumnType("varchar(150)")
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
-                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
+                        .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("Id");
 

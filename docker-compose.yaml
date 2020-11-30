@@ -6,7 +6,7 @@ services:
     - "8001:443"
     environment:
       - ASPNETCORE_URLS=https://+;http://+
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_HTTPS_PORT=8001
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/api.pfx

@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using api.Repository;
 using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace api
 {
@@ -67,11 +68,12 @@ namespace api
                 throw (new MisconfiguredDatabaseConnectionException());
             }
             services.AddDbContext<IotHomeControlContext>(options =>
-                options.UseMySql($"server={server};port={port};database={db};user={user};password={password}"));
+                options.UseMySql($"host={server};port={port};database={db};user={user};password={password}"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IotHomeControlContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -90,6 +92,8 @@ namespace api
             {
                 endpoints.MapControllers();
             });
+
+            dbContext.Database.Migrate();
         }
     }
 }

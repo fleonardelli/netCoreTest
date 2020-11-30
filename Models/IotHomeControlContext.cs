@@ -54,7 +54,7 @@ namespace api.Models
                     .HasColumnName("external_id")
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.DeviceType)
                     .WithMany(p => p.Device)
@@ -77,7 +77,7 @@ namespace api.Models
                     .HasColumnName("name")
                     .HasColumnType("varchar(100)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
             });
 
             modelBuilder.Entity<Family>(entity =>
@@ -93,7 +93,7 @@ namespace api.Models
                     .HasColumnName("surname")
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -110,7 +110,7 @@ namespace api.Models
                     .HasColumnName("name")
                     .HasColumnType("varchar(100)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
             });
 
             modelBuilder.Entity<Rol>(entity =>
@@ -127,7 +127,7 @@ namespace api.Models
                     .HasColumnName("name")
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -151,7 +151,7 @@ namespace api.Models
                     .HasColumnName("email")
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.FamilyId).HasColumnName("family_id");
 
@@ -160,7 +160,7 @@ namespace api.Models
                     .HasColumnName("name")
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.RolId).HasColumnName("rol_id");
 
@@ -169,7 +169,7 @@ namespace api.Models
                     .HasColumnName("surname")
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
+                    .HasCollation("utf8mb4_general_ci");
 
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.User)
