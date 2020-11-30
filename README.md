@@ -8,6 +8,8 @@
 
 `docker-compose up --build`
 
+(Note: If the first time it fails, run again. Somehow depends_on is not waiting for the mysql container to be running and the api tries to connect to it earlier than it should)
+
 The project will be running in https://localhost:8001
 
 If you want to check the database, all the configuration is in `docker-compose.yaml` or `appsettings.Docker.json`
