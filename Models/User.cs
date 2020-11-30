@@ -17,14 +17,16 @@ namespace api.Models
         [Required]
         [StringLength(150, MinimumLength = 2)]
         public string Name { get; set; }
-        [Key]
+        [Required]
         [StringLength(150, MinimumLength = 2)]
         public string Surname { get; set; }
-        [Key]
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
+        [Required]
         [RegularExpression("([1-9][0-9]*)")]
         public uint RolId { get; set; }
+        [Required]
         [RegularExpression("([1-9][0-9]*)")]
         public uint FamilyId { get; set; }
 
