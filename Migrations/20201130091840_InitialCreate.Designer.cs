@@ -9,8 +9,8 @@ using api.Models;
 namespace api.Migrations
 {
     [DbContext(typeof(IotHomeControlContext))]
-    [Migration("20201130085824_seeders-seedersTest")]
-    partial class seedersseedersTest
+    [Migration("20201130091840_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,9 +30,9 @@ namespace api.Migrations
                         .HasColumnName("device_type")
                         .HasColumnType("int unsigned");
 
-                    b.Property<uint>("ExternalId")
+                    b.Property<string>("ExternalId")
                         .HasColumnName("external_id")
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -66,18 +66,6 @@ namespace api.Migrations
                         .HasName("name");
 
                     b.ToTable("device_type");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1u,
-                            Name = "Thermostat"
-                        },
-                        new
-                        {
-                            Id = 2u,
-                            Name = "Door"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.Family", b =>
@@ -101,14 +89,6 @@ namespace api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("family");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1u,
-                            MainUserId = 0u,
-                            Surname = "Thompson"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.Permission", b =>
@@ -131,28 +111,6 @@ namespace api.Migrations
                         .HasName("name");
 
                     b.ToTable("permission");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1u,
-                            Name = "LOCK"
-                        },
-                        new
-                        {
-                            Id = 2u,
-                            Name = "UNLOCK"
-                        },
-                        new
-                        {
-                            Id = 3u,
-                            Name = "REQUEST_UNLOCK"
-                        },
-                        new
-                        {
-                            Id = 4u,
-                            Name = "REQUEST_LOCK"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.Rol", b =>
@@ -175,18 +133,6 @@ namespace api.Migrations
                         .HasName("name");
 
                     b.ToTable("rol");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1u,
-                            Name = "ROL_USER"
-                        },
-                        new
-                        {
-                            Id = 2u,
-                            Name = "ROL_CHILDREN"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.User", b =>
@@ -238,26 +184,6 @@ namespace api.Migrations
                         .HasName("rol_id");
 
                     b.ToTable("user");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1u,
-                            Email = "fer@gmail.com",
-                            FamilyId = 0u,
-                            Name = "Fernando",
-                            RolId = 1u,
-                            Surname = "Leonardelli"
-                        },
-                        new
-                        {
-                            Id = 2u,
-                            Email = "flor@gmail.com",
-                            FamilyId = 0u,
-                            Name = "Florencia",
-                            RolId = 2u,
-                            Surname = "Leonardelli"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.UserPermissionDevice", b =>
@@ -289,8 +215,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Device", b =>
                 {
-                    b.HasOne("api.Models.Device", "DeviceTypeNavigation")
-                        .WithMany("InverseDeviceTypeNavigation")
+                    b.HasOne("api.Models.DeviceType", "DeviceTypeNavigation")
+                        .WithMany("Device")
                         .HasForeignKey("DeviceType")
                         .HasConstraintName("device_ibfk_1")
                         .IsRequired();

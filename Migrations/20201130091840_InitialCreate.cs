@@ -4,30 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace api.Migrations
 {
-    public partial class seedersseedersTest : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "device",
-                columns: table => new
-                {
-                    id = table.Column<uint>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    external_id = table.Column<uint>(nullable: false),
-                    device_type = table.Column<uint>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_device", x => x.id);
-                    table.ForeignKey(
-                        name: "device_ibfk_1",
-                        column: x => x.device_type,
-                        principalTable: "device",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateTable(
                 name: "device_type",
                 columns: table => new
@@ -87,6 +67,26 @@ namespace api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_rol", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "device",
+                columns: table => new
+                {
+                    id = table.Column<uint>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    external_id = table.Column<string>(nullable: true),
+                    device_type = table.Column<uint>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_device", x => x.id);
+                    table.ForeignKey(
+                        name: "device_ibfk_1",
+                        column: x => x.device_type,
+                        principalTable: "device_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,50 +156,6 @@ namespace api.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "device_type",
-                columns: new[] { "id", "name" },
-                values: new object[,]
-                {
-                    { 1u, "Thermostat" },
-                    { 2u, "Door" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "family",
-                columns: new[] { "id", "main_user_id", "surname" },
-                values: new object[] { 1u, 1u, "Thompson" });
-
-            migrationBuilder.InsertData(
-                table: "permission",
-                columns: new[] { "id", "name" },
-                values: new object[,]
-                {
-                    { 1u, "LOCK" },
-                    { 2u, "UNLOCK" },
-                    { 3u, "REQUEST_UNLOCK" },
-                    { 4u, "REQUEST_LOCK" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "rol",
-                columns: new[] { "id", "name" },
-                values: new object[,]
-                {
-                    { 1u, "ROL_USER" },
-                    { 2u, "ROL_CHILDREN" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "user",
-                columns: new[] { "id", "email", "family_id", "name", "rol_id", "surname" },
-                values: new object[] { 1u, "fer@gmail.com", 1u, "Fernando", 1u, "Leonardelli" });
-
-            migrationBuilder.InsertData(
-                table: "user",
-                columns: new[] { "id", "email", "family_id", "name", "rol_id", "surname" },
-                values: new object[] { 2u, "flor@gmail.com", 1u, "Florencia", 2u, "Leonardelli" });
-
             migrationBuilder.CreateIndex(
                 name: "device_type",
                 table: "device",
@@ -259,9 +215,6 @@ namespace api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "device_type");
-
-            migrationBuilder.DropTable(
                 name: "user_permission_device");
 
             migrationBuilder.DropTable(
@@ -272,6 +225,9 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "user");
+
+            migrationBuilder.DropTable(
+                name: "device_type");
 
             migrationBuilder.DropTable(
                 name: "family");

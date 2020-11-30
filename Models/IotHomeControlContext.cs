@@ -52,7 +52,7 @@ namespace api.Models
                 entity.Property(e => e.ExternalId).HasColumnName("external_id");
 
                 entity.HasOne(d => d.DeviceTypeNavigation)
-                    .WithMany(p => p.InverseDeviceTypeNavigation)
+                    .WithMany(p => p.Device)
                     .HasForeignKey(d => d.DeviceType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("device_ibfk_1");
@@ -217,9 +217,6 @@ namespace api.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_permission_device_ibfk_1");
             });
-
-            modelBuilder.Seed();
-            modelBuilder.SeedTestData();
 
             OnModelCreatingPartial(modelBuilder);
         }

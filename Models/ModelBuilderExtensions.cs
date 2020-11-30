@@ -34,6 +34,10 @@ namespace api.Models
                 new User {Id = 1, Name = "Fernando", Surname = "Leonardelli", Email = "fer@gmail.com", RolId = 1, FamilyId = 1},
                 new User {Id = 2, Name = "Florencia", Surname = "Leonardelli", Email = "flor@gmail.com", RolId = 2,  FamilyId = 1}
             );
+
+            modelBuilder.Entity<Device>().HasData(
+                new Device {Id = 1, ExternalId = "xx123nn133", DeviceType = 1}
+            );
         }
     }
 }
