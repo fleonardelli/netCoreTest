@@ -18,18 +18,18 @@ namespace api.Controllers
     public class UserController : ControllerBase
     {
         private IConfiguration _config;
-        private UserService _userService;
-        public UserController(IConfiguration config, UserService userService)
+        private IAuthenticationManager _authenticationManager;
+        public UserController(IConfiguration config, IAuthenticationManager authenticationManager)
         {
             _config = config;
-            _userService = userService;
+            _authenticationManager = authenticationManager;
         }
 
         [HttpGet]
         [Route("login")]
         public async Task<IActionResult> Login(LoginRequestDto requestLogin)
         {
-            ServiceResponse<LoginResponseDto> response = await _userService.Login(requestLogin);
+            ServiceResponse<LoginResponseDto> response = await _authenticationManager.Login(requestLogin);
 
             if (response.Data == null) {
                 return NotFound(response);

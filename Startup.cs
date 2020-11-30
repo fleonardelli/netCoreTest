@@ -15,6 +15,9 @@ using api.Models;
 using api.Exceptions;
 using api.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace api
 {
@@ -33,9 +36,24 @@ namespace api
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<DeviceService>();
-            services.AddScoped<UserService>();
             services.AddScoped<IExternalTokenValidator, ExternalGoogleTokenValidatorService>();
+            services.AddScoped<IAuthenticationManager, JwtAuthenticationManager>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                    }
+                );
+
+            services.AddMvc();
 
             var server = Configuration["DB_SERVER"];
             var port = Configuration["DB_PORT"];

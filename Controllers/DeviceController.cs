@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {
@@ -18,6 +19,7 @@ namespace api.Controllers
             _iotHomeControlContext = iotHomeControlContext;
         }
 
+        [Authorize]
         [HttpGet]
         public IEnumerable<Device> Get()
         {
