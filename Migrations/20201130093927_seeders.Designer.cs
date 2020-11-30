@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Models;
 
 namespace api.Migrations
 {
     [DbContext(typeof(IotHomeControlContext))]
-    partial class IotHomeControlContextModelSnapshot : ModelSnapshot
+    [Migration("20201130093927_seeders")]
+    partial class seeders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,14 +47,6 @@ namespace api.Migrations
                         .HasName("external_id");
 
                     b.ToTable("device");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1u,
-                            DeviceTypeId = 1u,
-                            ExternalId = "000x123asd213"
-                        });
                 });
 
             modelBuilder.Entity("api.Models.DeviceType", b =>
@@ -115,7 +109,7 @@ namespace api.Migrations
                         new
                         {
                             Id = 1u,
-                            MainUserId = 1u,
+                            MainUserId = 0u,
                             Surname = "Thompson"
                         });
                 });
@@ -294,32 +288,6 @@ namespace api.Migrations
                         .HasName("permission_id");
 
                     b.ToTable("user_permission_device");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1u,
-                            PermissionId = 1u,
-                            DeviceId = 1u
-                        },
-                        new
-                        {
-                            UserId = 1u,
-                            PermissionId = 2u,
-                            DeviceId = 1u
-                        },
-                        new
-                        {
-                            UserId = 2u,
-                            PermissionId = 3u,
-                            DeviceId = 1u
-                        },
-                        new
-                        {
-                            UserId = 2u,
-                            PermissionId = 4u,
-                            DeviceId = 1u
-                        });
                 });
 
             modelBuilder.Entity("api.Models.Device", b =>

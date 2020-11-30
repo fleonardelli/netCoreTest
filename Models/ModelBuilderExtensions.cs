@@ -27,7 +27,7 @@ namespace api.Models
         public static void SeedTestData(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Family>().HasData(
-                new Family {Id = 1, Surname = "Thompson"}
+                new Family {Id = 1, Surname = "Thompson", MainUserId = 1}
             );
 
             modelBuilder.Entity<User>().HasData(
@@ -36,7 +36,14 @@ namespace api.Models
             );
 
             modelBuilder.Entity<Device>().HasData(
-                new Device {Id = 1, ExternalId = "xx123nn133", DeviceTypeId = 1}
+                new Device {Id = 1, ExternalId = "000x123asd213", DeviceTypeId = 1}
+            );
+
+            modelBuilder.Entity<UserPermissionDevice>().HasData(
+                new UserPermissionDevice{UserId = 1, DeviceId = 1, PermissionId = 1},
+                new UserPermissionDevice{UserId = 1, DeviceId = 1, PermissionId = 2},
+                new UserPermissionDevice{UserId = 2, DeviceId = 1, PermissionId = 3},
+                new UserPermissionDevice{UserId = 2, DeviceId = 1, PermissionId = 4}
             );
         }
     }

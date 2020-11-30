@@ -223,6 +223,9 @@ namespace api.Models
                     .HasConstraintName("user_permission_device_ibfk_1");
             });
 
+            modelBuilder.Seed();
+            modelBuilder.SeedTestData();
+
             OnModelCreatingPartial(modelBuilder);
         }
 
