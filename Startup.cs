@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using api.Models;
 using api.Exceptions;
+using api.Services;
+using AutoMapper;
 
 namespace api
 {
@@ -29,6 +31,11 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<DeviceService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<IExternalTokenValidator, ExternalGoogleTokenValidatorService>();
 
             var server = Configuration["DB_SERVER"];
             var port = Configuration["DB_PORT"];
@@ -37,7 +44,7 @@ namespace api
             var db = Configuration["DB_NAME"];
 
             if (server == null || port == null || user == null || password == null || db == null) {
-                throw (new MisconfiguredDatabaseConnection());
+                throw (new MisconfiguredDatabaseConnectionException());
             }
             services.AddDbContext<IotHomeControlContext>(options =>
                 options.UseMySql($"server={server};port={port};database={db};user={user};password={password}"));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
@@ -16,6 +17,8 @@ namespace api.Models
         public string Email { get; set; }
         public uint RolId { get; set; }
         public uint FamilyId { get; set; }
+        [NotMapped]
+        public string token { get; set; }
 
         public virtual Family Family { get; set; }
         public virtual Rol Rol { get; set; }

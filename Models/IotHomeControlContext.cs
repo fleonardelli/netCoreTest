@@ -28,7 +28,7 @@ namespace api.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                throw (new MisconfiguredDatabaseConnection());
+                throw (new MisconfiguredDatabaseConnectionException());
             }
         }
 
