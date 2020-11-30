@@ -44,7 +44,7 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "permissions",
+                name: "permission",
                 columns: table => new
                 {
                     id = table.Column<uint>(nullable: false)
@@ -55,7 +55,7 @@ namespace api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_permissions", x => x.id);
+                    table.PrimaryKey("PK_permission", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,7 +144,7 @@ namespace api.Migrations
                     table.ForeignKey(
                         name: "user_permission_device_ibfk_2",
                         column: x => x.permission_id,
-                        principalTable: "permissions",
+                        principalTable: "permission",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -179,7 +179,7 @@ namespace api.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "name",
-                table: "permissions",
+                table: "permission",
                 column: "name",
                 unique: true);
 
@@ -226,7 +226,7 @@ namespace api.Migrations
                 name: "device");
 
             migrationBuilder.DropTable(
-                name: "permissions");
+                name: "permission");
 
             migrationBuilder.DropTable(
                 name: "user");

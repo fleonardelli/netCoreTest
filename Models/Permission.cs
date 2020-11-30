@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace api.Models
 {
-    public partial class Permissions
+    public partial class Permission
     {
-        public Permissions()
+        public Permission()
         {
             UserPermissionDevice = new HashSet<UserPermissionDevice>();
         }

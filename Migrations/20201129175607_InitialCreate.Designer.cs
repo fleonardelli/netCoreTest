@@ -94,7 +94,7 @@ namespace api.Migrations
                     b.ToTable("family");
                 });
 
-            modelBuilder.Entity("api.Models.Permissions", b =>
+            modelBuilder.Entity("api.Models.Permission", b =>
                 {
                     b.Property<uint>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace api.Migrations
                         .IsUnique()
                         .HasName("name");
 
-                    b.ToTable("permissions");
+                    b.ToTable("permission");
                 });
 
             modelBuilder.Entity("api.Models.Rol", b =>
@@ -244,7 +244,7 @@ namespace api.Migrations
                         .HasConstraintName("user_permission_device_ibfk_3")
                         .IsRequired();
 
-                    b.HasOne("api.Models.Permissions", "Permission")
+                    b.HasOne("api.Models.Permission", "Permission")
                         .WithMany("UserPermissionDevice")
                         .HasForeignKey("PermissionId")
                         .HasConstraintName("user_permission_device_ibfk_2")

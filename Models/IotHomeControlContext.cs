@@ -19,7 +19,7 @@ namespace api.Models
         public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<DeviceType> DeviceType { get; set; }
         public virtual DbSet<Family> Family { get; set; }
-        public virtual DbSet<Permissions> Permissions { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserPermissionDevice> UserPermissionDevice { get; set; }
@@ -100,9 +100,9 @@ namespace api.Models
                     .HasConstraintName("family_ibfk_1");
             });
 
-            modelBuilder.Entity<Permissions>(entity =>
+            modelBuilder.Entity<Permission>(entity =>
             {
-                entity.ToTable("permissions");
+                entity.ToTable("permission");
 
                 entity.HasIndex(e => e.Name)
                     .HasName("name")
@@ -215,6 +215,8 @@ namespace api.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_permission_device_ibfk_1");
             });
+
+            modelBuilder.Seed();
 
             OnModelCreatingPartial(modelBuilder);
         }
