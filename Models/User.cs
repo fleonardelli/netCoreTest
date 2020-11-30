@@ -7,7 +7,6 @@ namespace api.Models
     {
         public User()
         {
-            Family = new HashSet<Family>();
             UserPermissionDevice = new HashSet<UserPermissionDevice>();
         }
 
@@ -16,9 +15,10 @@ namespace api.Models
         public string Surname { get; set; }
         public string Email { get; set; }
         public uint RolId { get; set; }
+        public uint FamilyId { get; set; }
 
+        public virtual Family Family { get; set; }
         public virtual Rol Rol { get; set; }
-        public virtual ICollection<Family> Family { get; set; }
         public virtual ICollection<UserPermissionDevice> UserPermissionDevice { get; set; }
     }
 }

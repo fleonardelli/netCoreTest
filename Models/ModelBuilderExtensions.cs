@@ -23,5 +23,17 @@ namespace api.Models
                 new DeviceType {Id = 2, Name = "Door"}
             );
         }
+
+        public static void SeedTestData(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Family>().HasData(
+                new Family {Id = 1, Surname = "Thompson"}
+            );
+
+            modelBuilder.Entity<User>().HasData(
+                new User {Id = 1, Name = "Fernando", Surname = "Leonardelli", Email = "leonardellifernando@gmail.com", RolId = 1},
+                new User {Id = 1, Name = "Fernando", Surname = "Leonardelli", Email = "leonardellifernando@gmail.com", RolId = 1}
+            );
+        }
     }
 }

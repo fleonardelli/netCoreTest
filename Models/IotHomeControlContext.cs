@@ -1,7 +1,7 @@
 ﻿using System;
-using api.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using api.Exceptions;
 
 namespace api.Models
 {
@@ -79,9 +79,6 @@ namespace api.Models
             {
                 entity.ToTable("family");
 
-                entity.HasIndex(e => e.MainUserId)
-                    .HasName("main_user_id");
-
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.MainUserId).HasColumnName("main_user_id");
@@ -92,12 +89,6 @@ namespace api.Models
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
-
-                entity.HasOne(d => d.MainUser)
-                    .WithMany(p => p.Family)
-                    .HasForeignKey(d => d.MainUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("family_ibfk_1");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -142,6 +133,9 @@ namespace api.Models
                     .HasName("email")
                     .IsUnique();
 
+                entity.HasIndex(e => e.FamilyId)
+                    .HasName("family_id");
+
                 entity.HasIndex(e => e.RolId)
                     .HasName("rol_id");
 
@@ -153,6 +147,8 @@ namespace api.Models
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.FamilyId).HasColumnName("family_id");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -169,6 +165,12 @@ namespace api.Models
                     .HasColumnType("varchar(150)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.HasOne(d => d.Family)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.FamilyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("user_ibfk_2");
 
                 entity.HasOne(d => d.Rol)
                     .WithMany(p => p.User)
@@ -217,6 +219,7 @@ namespace api.Models
             });
 
             modelBuilder.Seed();
+            modelBuilder.SeedTestData();
 
             OnModelCreatingPartial(modelBuilder);
         }
