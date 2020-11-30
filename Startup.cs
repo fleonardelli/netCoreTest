@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using api.Repository;
-using Microsoft.AspNetCore.Identity;
-using System;
 
 namespace api
 {
