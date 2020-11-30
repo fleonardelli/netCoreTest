@@ -10,8 +10,8 @@ namespace api.Controllers
     [Route("api/user/")]
     public class UserController : ControllerBase
     {
-        private IConfiguration _config;
-        private IAuthenticationManager _authenticationManager;
+        private readonly IConfiguration _config;
+        private readonly IAuthenticationManager _authenticationManager;
         public UserController(IConfiguration config, IAuthenticationManager authenticationManager)
         {
             _config = config;

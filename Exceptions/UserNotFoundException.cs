@@ -1,10 +1,11 @@
+using System;
+
 namespace api.Exceptions
 {
-    public class UserNotFoundException : System.Exception
+    public class UserNotFoundException : Exception
     {
-        public UserNotFoundException(): base("The user was is not registered in the system")
+        public UserNotFoundException(): base("User not found")
         {
-
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using api.Dtos.Login;
 using api.Exceptions;
 using api.Models;
+using api.Repository;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,50 +15,50 @@ namespace api.Services
 {
     public class JwtAuthenticationManager : IAuthenticationManager
     {
-        private readonly IotHomeControlContext _dbContext;
+        private readonly UserRepository _userRepository;
         private readonly IExternalTokenValidator _externalTokenValidator;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
 
         public JwtAuthenticationManager(
-            IotHomeControlContext dbContext,
+            UserRepository userRepository,
             IExternalTokenValidator externalTokenValidator,
             IMapper mapper,
             IConfiguration config
         )
         {
-            _dbContext = dbContext;
+            _userRepository = userRepository;
             _externalTokenValidator = externalTokenValidator;
             _mapper = mapper;
             _config = config.GetSection("Jwt");
         }
+
         public async Task<ServiceResponse<LoginResponseDto>> Login(LoginRequestDto requestLogin)
         {
-            User user = await _dbContext.User
-            .Include(u => u.Rol)
-            .FirstOrDefaultAsync(u => u.Email == requestLogin.email);
-
             ServiceResponse<LoginResponseDto> serviceResponse = new ServiceResponse<LoginResponseDto>();
 
-            if (user == null) {
-                serviceResponse.Success = false;
-                serviceResponse.Message = "User not found";
-
-                return serviceResponse;
-            }
-
             try {
-                _externalTokenValidator.validateToken(requestLogin.externalToken);
-            } catch (InvalidExternalTokenException ex) {
+                User user = await _userRepository.findByEmail(requestLogin.email);
+
+                try {
+                    _externalTokenValidator.validateToken(requestLogin.externalToken);
+                } catch (InvalidExternalTokenException ex) {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = ex.Message;
+
+                    return serviceResponse;
+                }
+
+                user.token = this.generateJwtToken(user);
+
+                serviceResponse.Data = _mapper.Map<LoginResponseDto>(user);
+
+            } catch (UserNotFoundException ex) {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
 
                 return serviceResponse;
             }
-
-            user.token = this.generateJwtToken(user);
-
-            serviceResponse.Data = _mapper.Map<LoginResponseDto>(user);
 
             return serviceResponse;
         }

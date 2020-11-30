@@ -11,6 +11,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using api.Repository;
+using Microsoft.AspNetCore.Identity;
 
 namespace api
 {
@@ -31,6 +33,12 @@ namespace api
 
             services.AddScoped<IExternalTokenValidator, ExternalGoogleTokenValidatorService>();
             services.AddScoped<IAuthenticationManager, JwtAuthenticationManager>();
+            services.AddScoped<DeviceService>();
+            services.AddScoped<UserDeviceActionRepository>();
+            services.AddScoped<UserRoleRepository>();
+            services.AddScoped<DeviceRepository>();
+            services.AddScoped<UserRepository>();
+            services.AddScoped<UserService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -47,6 +55,7 @@ namespace api
                 );
 
             services.AddMvc();
+            services.AddHttpContextAccessor();
 
             var server = Configuration["DB_SERVER"];
             var port = Configuration["DB_PORT"];

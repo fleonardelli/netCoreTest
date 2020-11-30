@@ -1,28 +1,47 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using api.Models;
 using Microsoft.AspNetCore.Authorization;
+using api.Dtos.Device;
+using api.Services;
+using System.Collections.Generic;
+using api.Models;
 
 namespace api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("device/")]
     public class DeviceController : ControllerBase
     {
-        private IotHomeControlContext _iotHomeControlContext;
-        public DeviceController(IotHomeControlContext iotHomeControlContext)
+        private readonly DeviceService _deviceService;
+        public DeviceController(DeviceService deviceService)
         {
-            _iotHomeControlContext = iotHomeControlContext;
+            _deviceService = deviceService;
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("action")]
+        public async Task<IActionResult> ExecuteAction(RequestDeviceAction requestDeviceAction)
+        {
+            ServiceResponse<string> response = await _deviceService.executeDeviceAction(requestDeviceAction);
+
+            if (response.Success) {
+                return Ok(response);
+            }
+
+            return BadRequest(response);
         }
 
         [Authorize]
         [HttpGet]
-        public IEnumerable<Device> Get()
+        public async Task<IActionResult> getAll()
         {
-            return _iotHomeControlContext.Device.ToList();
+            //This should be filtered by the devices active for a family,
+            //but for testing purposes I'm just returning all of them.
+            //should return a Dto containing the tables device and device_type.
+            ServiceResponse<List<Device>> response = await _deviceService.getAll();
+
+            return Ok(response);
         }
     }
 }
