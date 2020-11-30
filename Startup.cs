@@ -39,7 +39,6 @@ namespace api
             if (server == null || port == null || user == null || password == null || db == null) {
                 throw (new MisconfiguredDatabaseConnection());
             }
-
             services.AddDbContext<IotHomeControlContext>(options =>
                 options.UseMySql($"server={server};port={port};database={db};user={user};password={password}"));
         }

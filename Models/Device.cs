@@ -12,9 +12,9 @@ namespace api.Models
 
         public uint Id { get; set; }
         public string ExternalId { get; set; }
-        public uint DeviceType { get; set; }
+        public uint DeviceTypeId { get; set; }
 
-        public virtual DeviceType DeviceTypeNavigation { get; set; }
+        public virtual DeviceType DeviceType { get; set; }
         public virtual ICollection<UserPermissionDevice> UserPermissionDevice { get; set; }
     }
 }

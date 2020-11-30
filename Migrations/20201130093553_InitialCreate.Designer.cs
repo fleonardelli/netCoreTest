@@ -9,7 +9,7 @@ using api.Models;
 namespace api.Migrations
 {
     [DbContext(typeof(IotHomeControlContext))]
-    [Migration("20201130091840_InitialCreate")]
+    [Migration("20201130093553_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,18 +26,21 @@ namespace api.Migrations
                         .HasColumnName("id")
                         .HasColumnType("int unsigned");
 
-                    b.Property<uint>("DeviceType")
-                        .HasColumnName("device_type")
+                    b.Property<uint>("DeviceTypeId")
+                        .HasColumnName("device_type_id")
                         .HasColumnType("int unsigned");
 
                     b.Property<string>("ExternalId")
+                        .IsRequired()
                         .HasColumnName("external_id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)")
+                        .HasAnnotation("MySql:CharSet", "utf8mb4")
+                        .HasAnnotation("MySql:Collation", "utf8mb4_0900_ai_ci");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeviceType")
-                        .HasName("device_type");
+                    b.HasIndex("DeviceTypeId")
+                        .HasName("device_type_id");
 
                     b.HasIndex("ExternalId")
                         .IsUnique()
@@ -215,9 +218,9 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Device", b =>
                 {
-                    b.HasOne("api.Models.DeviceType", "DeviceTypeNavigation")
+                    b.HasOne("api.Models.DeviceType", "DeviceType")
                         .WithMany("Device")
-                        .HasForeignKey("DeviceType")
+                        .HasForeignKey("DeviceTypeId")
                         .HasConstraintName("device_ibfk_1")
                         .IsRequired();
                 });

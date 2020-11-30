@@ -75,15 +75,17 @@ namespace api.Migrations
                 {
                     id = table.Column<uint>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    external_id = table.Column<string>(nullable: true),
-                    device_type = table.Column<uint>(nullable: false)
+                    external_id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:Collation", "utf8mb4_0900_ai_ci"),
+                    device_type_id = table.Column<uint>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_device", x => x.id);
                     table.ForeignKey(
                         name: "device_ibfk_1",
-                        column: x => x.device_type,
+                        column: x => x.device_type_id,
                         principalTable: "device_type",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -157,9 +159,9 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "device_type",
+                name: "device_type_id",
                 table: "device",
-                column: "device_type");
+                column: "device_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "external_id",

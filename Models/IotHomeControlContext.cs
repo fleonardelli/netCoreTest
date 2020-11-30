@@ -38,8 +38,8 @@ namespace api.Models
             {
                 entity.ToTable("device");
 
-                entity.HasIndex(e => e.DeviceType)
-                    .HasName("device_type");
+                entity.HasIndex(e => e.DeviceTypeId)
+                    .HasName("device_type_id");
 
                 entity.HasIndex(e => e.ExternalId)
                     .HasName("external_id")
@@ -47,13 +47,18 @@ namespace api.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.DeviceType).HasColumnName("device_type");
+                entity.Property(e => e.DeviceTypeId).HasColumnName("device_type_id");
 
-                entity.Property(e => e.ExternalId).HasColumnName("external_id");
+                entity.Property(e => e.ExternalId)
+                    .IsRequired()
+                    .HasColumnName("external_id")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
 
-                entity.HasOne(d => d.DeviceTypeNavigation)
+                entity.HasOne(d => d.DeviceType)
                     .WithMany(p => p.Device)
-                    .HasForeignKey(d => d.DeviceType)
+                    .HasForeignKey(d => d.DeviceTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("device_ibfk_1");
             });

@@ -36,7 +36,7 @@ namespace api.Models
             );
 
             modelBuilder.Entity<Device>().HasData(
-                new Device {Id = 1, ExternalId = "xx123nn133", DeviceType = 1}
+                new Device {Id = 1, ExternalId = "xx123nn133", DeviceTypeId = 1}
             );
         }
     }
