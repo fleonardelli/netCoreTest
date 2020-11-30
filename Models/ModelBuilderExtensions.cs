@@ -31,8 +31,8 @@ namespace api.Models
             );
 
             modelBuilder.Entity<User>().HasData(
-                new User {Id = 1, Name = "Fernando", Surname = "Leonardelli", Email = "leonardellifernando@gmail.com", RolId = 1},
-                new User {Id = 1, Name = "Fernando", Surname = "Leonardelli", Email = "leonardellifernando@gmail.com", RolId = 1}
+                new User {Id = 1, Name = "Fernando", Surname = "Leonardelli", Email = "fer@gmail.com", RolId = 1, FamilyId = 1},
+                new User {Id = 2, Name = "Florencia", Surname = "Leonardelli", Email = "flor@gmail.com", RolId = 2,  FamilyId = 1}
             );
         }
     }
