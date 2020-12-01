@@ -56,6 +56,8 @@ Authorization: `Bearer Token - JWT token got from the login endpoint.`
 
 Result: `Response with a message`
 
+## Architecture document 
+https://docs.google.com/document/d/1DvmmfgtuGVp68Tsk7mzUt13FD5gG40GrdBtdjS3JijE/edit?usp=sharing
 
 ## Improvements
 
